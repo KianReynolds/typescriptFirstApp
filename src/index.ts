@@ -1,12 +1,16 @@
 import express, {Application, Request, Response} from "express" ;
 
+import userRoutes from './routes/users';
+
 import morgan from "morgan";
 
 const PORT = process.env.PORT || 3000;
 
 const app: Application = express();
 
+
 app.use(morgan("tiny"));
+app.use('/api/v1/users', userRoutes)
 
 app.get("/ping", async (_req : Request, res: Response) => {
     res.send({
