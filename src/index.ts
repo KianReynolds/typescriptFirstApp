@@ -11,7 +11,9 @@ const app: Application = express();
 
 
 app.use(morgan("tiny"));
+
 app.use('/api/v1/users', userRoutes)
+app.use(express.json());
 
 app.get("/ping", async (_req : Request, res: Response) => {
     res.send({
