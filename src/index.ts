@@ -4,6 +4,7 @@ import userRoutes from './routes/users';
 
 import morgan from "morgan";
 
+
 const PORT = process.env.PORT || 3000;
 
 const app: Application = express();
