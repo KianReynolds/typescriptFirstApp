@@ -2,9 +2,11 @@ import express, {Application, Request, Response} from "express" ;
 
 import userRoutes from './routes/users';
 
+import morgan from "morgan";
+
 import dotenv from "dotenv";
 
-import morgan from "morgan";
+import {authenticateKey} from './middleware/auth.middleware';
 
 dotenv.config();
 
@@ -14,9 +16,10 @@ const app: Application = express();
 
 
 app.use(morgan("tiny"));
+
 app.use(express.json());
 
-app.use('/api/v1/users', userRoutes)
+app.use('/api/v1/users', authenticateKey, userRoutes)
 
 
 app.get("/ping", async (_req : Request, res: Response) => {
