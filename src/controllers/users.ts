@@ -1,4 +1,8 @@
 import { Request, Response } from 'express';
+import { usersCollection } from "../database";
+import User from '../models/user'
+import { ObjectId} from 'mongodb';
+
 
 export const getUsers = (req: Request, res: Response) => {
     //to do: get all users from the database
@@ -11,13 +15,25 @@ export const getUserById = (req: Request, res: Response) => {
   res.json({"message": `get a user ${id} received`})
 };
 
-export const createUser = (req: Request, res: Response) => {
+export const createUser = async (req: Request, res: Response) => {
   // create a new user in the database
+  try {
+    const newUser = req.body as User;
 
-  console.log(req.body); //for now just log the data
+    const result = await usersCollection.insertOne(newUser)
 
-  res.json({"message": `create a new user with data from the post message`})
+    if (result) {
+        res.status(201).location(`${result.insertedId}`).json({message : `Created a new user with id ${result.insertedId}`})}
+        else {
+        res.status(500).send("Failed to create a new user.");
+        }
+    }
+   catch (error) {
+    console.error(error);
+    res.status(400).send(`Unable to create new user`);
+}
 };
+
 
 export const updateUser = (req: Request, res: Response) => {
   
