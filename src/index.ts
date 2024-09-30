@@ -19,7 +19,7 @@ app.use(morgan("tiny"));
 
 app.use(express.json());
 
-app.use('/api/v1/users', authenticateKey, userRoutes)
+app.use('/api/v1/users',  userRoutes)
 
 
 app.get("/ping", async (_req : Request, res: Response) => {
