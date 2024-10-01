@@ -53,11 +53,24 @@ export const createUser = async (req: Request, res: Response) => {
 };
 
 
-export const updateUser = (req: Request, res: Response) => {
-  
-  console.log(req.body); //for now just log the data
+export const updateUser = async (req: Request, res: Response) => {
+  let id:string = req.params.id;
+  try{
+    const query = { _id: new ObjectId(id) };
+    const newData = "";
+    const result = await usersCollection.updateOne(query, {$set : newData});
 
-  res.json({"message": `update user ${req.params.id} with data from the post message`})
+    
+
+
+
+
+
+  }catch(error){
+    console.error(error);
+    res.status(400).send(error);
+  }
+ 
 };
 
 export const deleteUser = async (req: Request, res: Response) => { 
