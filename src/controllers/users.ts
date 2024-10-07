@@ -56,19 +56,25 @@ export const createUser = async (req: Request, res: Response) => {
 export const updateUser = async (req: Request, res: Response) => {
   let id:string = req.params.id;
   try{
+    const newData = req.body;
+
+    if(!ObjectId.isValid(id)) {
+      return res.status(400).send({error: 'Invalid user ID format.' });
+    }
+
     const query = { _id: new ObjectId(id) };
-    const newData = "";
+
     const result = await usersCollection.updateOne(query, {$set : newData});
 
-    
+    if(result.matchedCount === 0){
+      return res.status(404).send({error: 'User not found'});
+    }
 
-
-
-
+    return res.status(200).send({message: 'User updated successfully'});
 
   }catch(error){
     console.error(error);
-    res.status(400).send(error);
+    return res.status(500).send({error: 'Failed to update user.'});
   }
  
 };
