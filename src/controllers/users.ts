@@ -11,8 +11,16 @@ export const getUsers =async  (req: Request, res: Response) => {
    res.status(200).json(users);
 
  } catch (error) {
-   res.status(500).send("oppss");
- }
+  if (error instanceof Error)
+  {
+   console.log(`issue with inserting ${error.message}`);
+  }
+  else{
+    console.log(`error with ${error}`)
+  }
+  res.status(400).send(`Unable to get user`);
+}
+
 };
 
 
@@ -28,8 +36,16 @@ export const getUserById = async (req: Request, res: Response) => {
         res.status(200).send(user);
     }
 } catch (error) {
-    res.status(404).send(`Unable to find matching document with id: ${req.params.id}`);
+  if (error instanceof Error)
+  {
+   console.log(`issue with inserting ${error.message}`);
+  }
+  else{
+    console.log(`error with ${error}`)
+  }
+  res.status(400).send(`Unable to get user id`);
 }
+
 };
 
 
@@ -46,10 +62,17 @@ export const createUser = async (req: Request, res: Response) => {
         res.status(500).send("Failed to create a new user.");
         }
     }
-   catch (error) {
-    console.error(error);
-    res.status(400).send(`Unable to create new user`);
-}
+    catch (error) {
+      if (error instanceof Error)
+      {
+       console.log(`issue with inserting ${error.message}`);
+      }
+      else{
+        console.log(`error with ${error}`)
+      }
+      res.status(400).send(`Unable to create new user`);
+  }
+  
 };
 
 
@@ -72,10 +95,17 @@ export const updateUser = async (req: Request, res: Response) => {
 
     return res.status(200).send({message: 'User updated successfully'});
 
-  }catch(error){
-    console.error(error);
-    return res.status(500).send({error: 'Failed to update user.'});
-  }
+  }catch (error) {
+    if (error instanceof Error)
+    {
+     console.log(`issue with inserting ${error.message}`);
+    }
+    else{
+      console.log(`error with ${error}`)
+    }
+    res.status(400).send(`Unable to update user`);
+}
+
  
 };
 
@@ -94,7 +124,15 @@ export const deleteUser = async (req: Request, res: Response) => {
         res.status(404).json({message: `no user fround with id ${id}`});
     }
 } catch (error) {
-    console.error(error);
-    res.status(400).send(error);
-}};
+  if (error instanceof Error)
+  {
+   console.log(`issue with inserting ${error.message}`);
+  }
+  else{
+    console.log(`error with ${error}`)
+  }
+  res.status(400).send(`Unable to delete user`);
+}
+
+};
 
