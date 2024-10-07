@@ -1,5 +1,5 @@
 @endpoint = http://localhost:3000/api/v1/users
-
+@
 ###
 ### POST Request for a contact 
 ## Expected result is ........
@@ -23,6 +23,16 @@ x-api-key: ""
 
 
    GET {{endpoint}}/{{{{newObjectID}}}}
+
+###
+PUT http://localhost:3000/api/v1/users/670403a3595adb1ffcd15911
+content-type: application/json
+
+{ "name" : "Kian Reynolds",
+"email": "kianreynolds234@gmail.com"
+}
+
+###
 
 
 

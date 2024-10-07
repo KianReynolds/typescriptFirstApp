@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import { usersCollection } from "../database";
 import User from '../models/user'
 import { ObjectId} from 'mongodb';
+import { ValidateUser } from '../models/user';
+import Joi from 'joi';
 
 
 export const getUsers =async  (req: Request, res: Response) => {
@@ -54,6 +56,10 @@ export const createUser = async (req: Request, res: Response) => {
   try {
     const newUser = req.body as User;
 
+    newUser.dateJoined = new Date();
+
+    newUser.lastUpdated = new Date();
+
     const result = await usersCollection.insertOne(newUser)
 
     if (result) {
@@ -80,6 +86,8 @@ export const updateUser = async (req: Request, res: Response) => {
   let id:string = req.params.id;
   try{
     const newData = req.body;
+
+    const {name, email, phonenumber} = req.body;
 
     if(!ObjectId.isValid(id)) {
       return res.status(400).send({error: 'Invalid user ID format.' });
@@ -133,6 +141,14 @@ export const deleteUser = async (req: Request, res: Response) => {
   }
   res.status(400).send(`Unable to delete user`);
 }
+
+let validateResult : Joi.ValidationResult = ValidateUser(req.body)
+
+ if (validateResult.error) {
+   res.status(400).json(validateResult.error);
+   return;
+ }
+
 
 };
 
