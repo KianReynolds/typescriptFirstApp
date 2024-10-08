@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
 import { gradeHistoriesCollection} from '../database';
-import  GradeHistory  from "../models/gradeHistories"
-
+import  GradeHistory  from "../models/gradeHistory"
+import { ValidateGrade } from "../models/gradeHistory";
+import { ObjectId } from "mongodb";
+import Joi from "joi";
 
 export const getGradeHistories = async (req: Request, res: Response) => {
     try{
