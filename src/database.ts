@@ -1,7 +1,7 @@
 import { MongoClient, Db, Collection}  from "mongodb";
 import  dotenv from "dotenv";
 import User from './models/user'
-import GradeHistory from './models/gradeHistory'
+import {GradeHistory} from './models/gradeHistory'
 
 
   dotenv.config();

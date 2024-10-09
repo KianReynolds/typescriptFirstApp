@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
 import { gradeHistoriesCollection} from '../database';
-import  GradeHistory  from "../models/gradeHistory"
+import { Request, Response } from "express";
+import  {GradeHistory}  from "../models/gradeHistory"
 import { ValidateGrade } from "../models/gradeHistory";
 import { ObjectId } from "mongodb";
 import Joi from "joi";

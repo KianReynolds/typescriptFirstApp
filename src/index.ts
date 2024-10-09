@@ -21,6 +21,10 @@ app.use(express.json());
 
 app.use('/api/v1/users',  userRoutes)
 
+app.use('/api/v1/gradeHistories', userRoutes)
+
+
+
 
 app.get("/ping", async (_req : Request, res: Response) => {
     res.send({
