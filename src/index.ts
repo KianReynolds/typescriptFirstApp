@@ -6,9 +6,16 @@ import morgan from "morgan";
 
 import dotenv from "dotenv";
 
+import { Db} from 'mongodb';
+
+
+
 import {authenticateKey} from './middleware/auth.middleware';
 
 dotenv.config();
+
+import gradeHistoriesRoutes from './routes/gradeHistories'
+
 
 const PORT = process.env.PORT || 3001;
 
@@ -21,7 +28,7 @@ app.use(express.json());
 
 app.use('/api/v1/users',  userRoutes)
 
-app.use('/api/v1/gradeHistories', userRoutes)
+app.use('/api/v1/gradeHistories', gradeHistoriesRoutes)
 
 
 

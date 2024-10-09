@@ -1,7 +1,7 @@
 import express, { Router } from "express";
 
 import {
-    getGradeHistories
+    getGradeHistories,
 
 } from '../controllers/gradeHistories';
 
