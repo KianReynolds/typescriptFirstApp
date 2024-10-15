@@ -16,6 +16,9 @@ let db : Db
 
   export const collections: { users?: Collection<User> } = {};
 
+  
+  
+
 client.connect().then
 (()=>
   {

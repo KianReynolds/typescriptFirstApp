@@ -8,13 +8,13 @@ export const getGradeHistories = async (req: Request, res: Response) => {
     
   try{
 
-    const {filter} = req.query;
+    //const {filter} = req.query;
 
-    const filterObj = filter ? JSON.parse(filter as string) : {};
+    //const filterObj = filter ? JSON.parse(filter as string) : {"class_id":1};
       
-    const gradeHistories = (await gradeHistoriesCollection.find(filterObj).toArray()) as GradeHistory[];
+    //const gradeHistories = (await gradeHistoriesCollection.find(filterObj).toArray()) as GradeHistory[];
 
-    //const gradeHistories = (await gradeHistoriesCollection.find({"class_id": 1}).toArray()) as GradeHistory[];
+    const gradeHistories = (await gradeHistoriesCollection.find({}).toArray()) as GradeHistory[];
 
     res.status(200).json(gradeHistories);
 
