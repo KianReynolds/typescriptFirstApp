@@ -8,13 +8,22 @@ export const getGradeHistories = async (req: Request, res: Response) => {
     
   try{
 
-    //const {filter} = req.query;
+    const page = parseInt(req.query.page as string, 10) || 1;
+    const pageSize = parseInt(req.query.pageSize as string, 0) || 0;
 
-    //const filterObj = filter ? JSON.parse(filter as string) : {"class_id":1};
+    const {filter} = req.query;
+
+    const filterObj = filter ? JSON.parse(filter as string) : {};
       
-    //const gradeHistories = (await gradeHistoriesCollection.find(filterObj).toArray()) as GradeHistory[];
+    const gradeHistories = (await gradeHistoriesCollection
+      .find(filterObj)
+      .project({"student_id": 1, "class_id" : 1, "_id" : 0})
+      .sort({"class_id" : 1})
+      .skip((page-1)*pageSize)
+      .limit(pageSize)
+      .toArray()) as GradeHistory[];
 
-    const gradeHistories = (await gradeHistoriesCollection.find({}).toArray()) as GradeHistory[];
+    //const gradeHistories = (await gradeHistoriesCollection.find({"class_id": 1}).toArray()) as GradeHistory[];
 
     res.status(200).json(gradeHistories);
 
