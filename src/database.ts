@@ -3,6 +3,8 @@ import  dotenv from "dotenv";
 import User from './models/user'
 import {GradeHistory} from './models/gradeHistory'
 
+import 
+
 
   dotenv.config();
   const connectionString : string  = process.env.DB_CONN_STRING || "";
@@ -17,6 +19,7 @@ let db : Db
   export const collections: { users?: Collection<User> } = {};
 
   
+  export let budgetCollection : Collection<>
   
 
 client.connect().then
@@ -26,6 +29,9 @@ client.connect().then
   usersCollection  = db.collection('users');
   collections.users = usersCollection;
   gradeHistoriesCollection = db.collection('grades')
+
+  
+
   console.log('Connected to database');
 }
 )
