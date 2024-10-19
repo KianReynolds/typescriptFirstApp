@@ -30,7 +30,7 @@ app.use('/api/v1/users',  userRoutes)
 
 app.use('/api/v1/gradeHistories', gradeHistoriesRoutes)
 
-app.use('/api/v/budgetRoutes', budgetRoutes)
+app.use('/api/v/budget', budgetRoutes)
 
 
 

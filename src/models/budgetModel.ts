@@ -3,7 +3,7 @@ import Joi from "joi";
 
 export default interface Budget{
     name: string;
-    id? : ObjectId;
+    //id? : ObjectId;
     category : string;
     amount: number;
     description : string;
