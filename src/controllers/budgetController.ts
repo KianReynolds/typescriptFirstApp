@@ -14,9 +14,22 @@ export const getBudgetById = (req: Request, res: Response) => {
 
 export const createBudget = async(req: Request, res: Response) => {
 //create new budget plan in the database
-console.log(req.body);
+try {
+    const newBudget = req.body as Budget;
 
-res.json({"message": `created a new budget with data from the post message`})
+    const result = await budgetCollection.insertOne(newBudget)
+
+    if (result) {
+        res.status(201).location(`${result.insertedId}`).json({message : `Created a new user with id ${result.insertedId}`})}
+        else {
+        res.status(500).send("Failed to create a new budget.");
+        }
+    }
+   catch (error) {
+    console.error(error);
+    res.status(400).send(`Unable to create new budget`);
+}
+
 };
 
 export const updateBudget = (req: Request, res: Response) => {

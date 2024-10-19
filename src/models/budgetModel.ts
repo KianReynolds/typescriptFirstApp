@@ -3,11 +3,11 @@ import Joi from "joi";
 
 export default interface Budget{
     name: string;
-    //id? : ObjectId;
+    id? : ObjectId;
     category : string;
     amount: number;
-    description : string;
-    date : Date;
+    //description : string;
+   // date : Date;
 }
 
 export const ValiadateBudget =  (budget:Budget) => {
@@ -18,4 +18,5 @@ export const ValiadateBudget =  (budget:Budget) => {
         category: Joi.string().required(),
         amount: Joi.number().integer().required()
     })
+    return budgetScema.validate(budget);
 }
