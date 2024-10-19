@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 
 import { Db} from 'mongodb';
 
-
+import budgetRoutes from './routes/budgetRoutes'
 
 import {authenticateKey} from './middleware/auth.middleware';
 
@@ -29,6 +29,8 @@ app.use(express.json());
 app.use('/api/v1/users',  userRoutes)
 
 app.use('/api/v1/gradeHistories', gradeHistoriesRoutes)
+
+app.use('/api/v/budgetRoutes', budgetRoutes)
 
 
 

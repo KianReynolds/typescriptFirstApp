@@ -20,6 +20,7 @@ let db : Db
 
   
   export let budgetCollection : Collection<Budget>
+  export const getCollection: { budgets?: Collection<Budget> } = {};
   
 
 client.connect().then
@@ -29,8 +30,10 @@ client.connect().then
   usersCollection  = db.collection('users');
   collections.users = usersCollection;
   gradeHistoriesCollection = db.collection('grades')
+  
 
   budgetCollection = db.collection('budgeting');
+  getCollection.budgets = budgetCollection;
 
   console.log('Connected to database');
 }

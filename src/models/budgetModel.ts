@@ -14,7 +14,7 @@ export const ValiadateBudget =  (budget:Budget) => {
 
     const budgetScema = Joi.object<Budget>({
         name: Joi.string().min(3).required(),
-        id: Joi.object({$oid: Joi.string()}).required(),
+        //id: Joi.object({$oid: Joi.string()}).required(),
         category: Joi.string().required(),
         amount: Joi.number().integer().required()
     })
