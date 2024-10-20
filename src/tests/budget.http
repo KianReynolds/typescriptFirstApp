@@ -55,6 +55,6 @@ Content-Type: application/json
 
 ###
 
-DELETE {{endpoint}}/67140b09c92b9617aba9c9c1 HTTP/3.0
+DELETE {{endpoint}}/67152b39b51cb85aee197ddd HTTP/3.0
 
 ###
