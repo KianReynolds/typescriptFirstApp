@@ -11,8 +11,15 @@ export const getBudget = async (req: Request, res: Response) => {
         res.status(200).json(budgets);
      
       } catch (error) {
-        res.status(500).send("oppss");
-      }
+        if (error instanceof Error)
+        {
+         console.log(`issue with inserting ${error.message}`);
+        }
+        else{
+          console.log(`error with ${error}`)
+        }
+        res.status(400).send(`Unable to get budget`);
+    }
      
 };
 
@@ -27,8 +34,15 @@ export const getBudgetById = async (req: Request, res: Response) => {
         res.status(200).send(budget);
     }
 } catch (error) {
-    res.status(404).send(`Unable to find matching document with id: ${req.params.id}`);
-}
+    if (error instanceof Error)
+    {
+     console.log(`issue with inserting ${error.message}`);
+    }
+    else{
+      console.log(`error with ${error}`)
+    }
+    res.status(400).send(`Unable to get budget id`);
+  }
 
 };
 
@@ -45,10 +59,16 @@ try {
         res.status(500).send("Failed to create a new budget.");
         }
     }
-   catch (error) {
-    console.error(error);
-    res.status(400).send(`Unable to create new budget`);
-}
+    catch (error) {
+        if (error instanceof Error)
+        {
+         console.log(`issue with inserting ${error.message}`);
+        }
+        else{
+          console.log(`error with ${error}`)
+        }
+        res.status(400).send(`Unable to create new budget`);
+    }
 
 };
 
