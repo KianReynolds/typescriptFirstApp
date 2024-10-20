@@ -21,6 +21,13 @@ Content-Type: application/json
 
 {
     "name": "Mr. Reynolds",
+    "budgetLimit": 200,
+    "transactions": [
+        {
+            
+        }
+    ]
+
     "category": "groceries",
     "amount": 141
 }

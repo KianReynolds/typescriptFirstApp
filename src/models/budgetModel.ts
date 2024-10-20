@@ -15,18 +15,20 @@ export default interface Budget{
 
 export const ValiadateBudget =  (budget:Budget) => {
 
-    const budgetScema = Joi.object<Budget>({
-        name: Joi.string().min(3).required(),
-        budgetLimit: Joi.number().integer().required(),
-
-
+    const transactionSchema = Joi.object({
         type: Joi.string().valid('income', 'expense').required(),
-
-        //id: Joi.object({$oid: Joi.string()}).required(),
         category: Joi.string().required(),
         amount: Joi.number().integer().required(),
         description: Joi.string().min(3).required(),
         date: Joi.date().default(Date.now)
+        
+    })
+
+    const budgetScema = Joi.object({
+        name: Joi.string().min(3).required(),
+        budgetLimit: Joi.number().integer().required(),
+        transactions: Joi.array().items(transactionSchema).required()
     })
     return budgetScema.validate(budget);
+    
 }
