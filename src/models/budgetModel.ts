@@ -6,8 +6,9 @@ export default interface Budget{
     id? : ObjectId;
     category : string;
     amount: number;
-    //description : string;
-   // date : Date;
+    description : string;
+    date : Date;
+
 }
 
 export const ValiadateBudget =  (budget:Budget) => {
@@ -16,7 +17,9 @@ export const ValiadateBudget =  (budget:Budget) => {
         name: Joi.string().min(3).required(),
         //id: Joi.object({$oid: Joi.string()}).required(),
         category: Joi.string().required(),
-        amount: Joi.number().integer().required()
+        amount: Joi.number().integer().required(),
+        description: Joi.string(),
+        date: Joi.number().default(Date.now)
     })
     return budgetScema.validate(budget);
 }

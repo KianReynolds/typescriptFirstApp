@@ -6,7 +6,7 @@ POST {{endpoint}} HTTP/3.0
 Content-Type: application/json
 
 {
-    "name": "Kian Reynolds",
+    "name": "K Reynolds",
     "category": "groceries",
     "amount": 140
 }
@@ -27,6 +27,6 @@ Content-Type: application/json
 
 ###
 
-DELETE {{endpoint}}/67140b3bc92b9617aba9c9c2
+DELETE {{endpoint}}/67140b3bc92b9617aba9c9c2 HTTP/3.0
 
 ###

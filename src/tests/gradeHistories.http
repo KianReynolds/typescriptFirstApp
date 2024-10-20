@@ -6,3 +6,7 @@ GET http://localhost:3000/api/v1/gradeHistories?filter={"scores": {"$elemMatch":
 
 ###
 
+GET http://localhost:3000/api/v1/gradeHistories
+
+###
+
