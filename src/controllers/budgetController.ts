@@ -52,10 +52,35 @@ try {
 
 };
 
-export const updateBudget = (req: Request, res: Response) => {
-    console.log(req.body);
+export const updateBudget = async (req: Request, res: Response) => {
+    let id:string = req.params.id;
+  try{
+    const newData = req.body;
 
-    res.json({"message": `update budget ${req.params.id} with data from the post message`})
+    if(!ObjectId.isValid(id)) {
+      return res.status(400).send({error: 'Invalid budget ID format.' });
+    }
+
+    const query = { _id: new ObjectId(id) };
+
+    const result = await budgetCollection.updateOne(query, {$set : newData});
+
+    if(result.matchedCount === 0){
+      return res.status(404).send({error: 'Budget not found'});
+    }
+
+    return res.status(200).send({message: 'Budget updated successfully'});
+
+  }catch (error) {
+    if (error instanceof Error)
+    {
+     console.log(`issue with inserting ${error.message}`);
+    }
+    else{
+      console.log(`error with ${error}`)
+    }
+    res.status(400).send(`Unable to update budget`);
+}
 };
 
 export const deleteBudget = async (req: Request, res: Response) => {
