@@ -1,17 +1,32 @@
-GET http://localhost:3000/api/v1/budget HTTP/1.1
+@endpoint = http://localhost:3000/api/v1/budget 
 
 ###
 
-POST http://localhost:3000/api/v1/budget HTTP/3.0
+POST {{endpoint}} HTTP/3.0
 Content-Type: application/json
 
 {
-    "name": "John Doe",
+    "name": "Kian Reynolds",
     "category": "groceries",
-    "amount": 350
+    "amount": 140
 }
 
 ###
-GET http://localhost:3000/api/v1/budget HTTP/3.0
+GET {{endpoint}} HTTP/3.0
+
+###
+
+PUT {{endpoint}}/67140b09c92b9617aba9c9c1 HTTP/3.0
+Content-Type: application/json
+
+{
+    "name": "Mr. Reynolds",
+    "category": "groceries",
+    "amount": 141
+}
+
+###
+
+DELETE {{endpoint}}/67140b3bc92b9617aba9c9c2
 
 ###
