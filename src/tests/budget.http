@@ -6,15 +6,15 @@ POST {{endpoint}} HTTP/3.0
 Content-Type: application/json
 
 {
-    "name": "Don Johnson",
-    "category": "Bank",
-    "budgetLimit": 5000,
+    "name": "Sam Gormely",
+    "category": "Groceries",
+    "budgetLimit": 500,
     "transactions": [
         {
-            "type": "income",
+            "type": "expense",
             "amount": 50,
             "date": "2024-10-10",
-            "description": "Deposited money"
+            "description": "Supermarket groceries"
         }
         
     ]
@@ -26,17 +26,7 @@ Content-Type: application/json
 
 {
     "name": "D",
-    "category": "Bank",
-    "budgetLimit": -5000,
-    "transactions": [
-        {
-            "type": "income",
-            "amount": 50,
-            "date": "2024-10-10",
-            "description": "Deposited money"
-        }
-        
-    ]
+    
 }
 ###
 
@@ -85,7 +75,7 @@ Content-Type: application/json
     "transactions": [
         {
             "type": "expense",
-            "amount": 50,
+            "amount": 75,
             "date": "2024-10-10",
             "description": "Supermarket groceries"
         },
@@ -176,7 +166,7 @@ Content-Type: application/json
 
 
 
-DELETE {{endpoint}}/67152b39b51cb85aee197ddd HTTP/3.0
+DELETE {{endpoint}}/67153d1a44ee23ddafa999b3 HTTP/3.0
 
 ###
 
