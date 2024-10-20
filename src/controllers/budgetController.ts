@@ -1,15 +1,35 @@
 import { Request, Response } from "express";
-import Budget from "../models/budgetModel";
+import Budget, { ValiadateBudget } from "../models/budgetModel";
 import { budgetCollection } from "../database";
+import { ObjectId } from "mongodb";
+import Joi from "joi";
 
 export const getBudget = async (req: Request, res: Response) => {
 
-    res.json({"message" : "budget received"})
+    try {
+        const budgets = (await budgetCollection.find({}).toArray()) as Budget[];
+        res.status(200).json(budgets);
+     
+      } catch (error) {
+        res.status(500).send("oppss");
+      }
+     
 };
 
-export const getBudgetById = (req: Request, res: Response) => {
-    let id: string = req.params.id;
-    res.json({"message": `budget ${id} received`})
+export const getBudgetById = async (req: Request, res: Response) => {
+    
+    let id:string = req.params.id;
+  try {
+    const query = { _id: new ObjectId(id) };
+    const budget = (await budgetCollection.findOne(query)) as Budget;
+
+    if (budget) {
+        res.status(200).send(budget);
+    }
+} catch (error) {
+    res.status(404).send(`Unable to find matching document with id: ${req.params.id}`);
+}
+
 };
 
 export const createBudget = async(req: Request, res: Response) => {
@@ -38,7 +58,35 @@ export const updateBudget = (req: Request, res: Response) => {
     res.json({"message": `update budget ${req.params.id} with data from the post message`})
 };
 
-export const deleteBudget = (req: Request, res: Response) => {
+export const deleteBudget = async (req: Request, res: Response) => {
 
-    res.json({"message": `delete budget ${req.params.id} from the database`})
+    let id:string = req.params.id;
+  try {
+    const query = { _id: new ObjectId(id) };
+    const result = await budgetCollection.deleteOne(query);
+
+    if (result && result.deletedCount) {
+        res.status(202).json({message :`Successfully removed budget with id ${id}`});
+    } else if (!result) {
+        res.status(400).json({message: `Failed to remove budget with id ${id}`});
+    } else if (!result.deletedCount) {
+        res.status(404).json({message: `no user fround with id ${id}`});
+    }
+} catch (error) {
+  if (error instanceof Error)
+  {
+   console.log(`issue with inserting ${error.message}`);
+  }
+  else{
+    console.log(`error with ${error}`)
+  }
+  res.status(400).send(`Unable to delete budget`);
+}
+
+let validateResult : Joi.ValidationResult = ValiadateBudget(req.body)
+
+ if (validateResult.error) {
+   res.status(400).json(validateResult.error);
+   return;
+ }
 };
