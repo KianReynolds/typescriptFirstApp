@@ -128,10 +128,10 @@ export const deleteBudget = async (req: Request, res: Response) => {
   res.status(400).send(`Unable to delete budget`);
 }
 
-let validateResult : Joi.ValidationResult = ValiadateBudget(req.body)
+// let validateResult : Joi.ValidationResult = ValiadateBudget(req.body)
 
- if (validateResult.error) {
-   res.status(400).json(validateResult.error);
-   return;
- }
+//  if (validateResult.error) {
+//    res.status(400).json(validateResult.error);
+//    return;
+//  }
 };

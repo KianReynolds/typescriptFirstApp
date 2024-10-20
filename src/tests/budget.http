@@ -30,7 +30,7 @@ GET {{endpoint}} HTTP/3.0
 
 ###
 
-PUT {{endpoint}}/67140b09c92b9617aba9c9c1 HTTP/3.0
+PUT {{endpoint}}/67153e5c44ee23ddafa999b4 HTTP/3.0
 Content-Type: application/json
 
 {
