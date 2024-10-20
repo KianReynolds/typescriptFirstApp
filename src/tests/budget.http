@@ -6,9 +6,23 @@ POST {{endpoint}} HTTP/3.0
 Content-Type: application/json
 
 {
-    "name": "K Reynolds",
-    "category": "groceries",
-    "amount": 140
+    "name": "Mr. Reynolds",
+    "category": "Groceries",
+    "budgetLimit": 200,
+    "transactions": [
+        {
+            "type": "expense",
+            "amount": 74,
+            "date": "2024-10-10",
+            "description": "Supermarket groceries"
+        },
+        {
+            "type": "expense",
+            "amount": 30,
+            "date": "2024-10-15",
+            "description": "Grocery store purchase"
+        }
+    ]
 }
 
 ###
@@ -22,14 +36,7 @@ Content-Type: application/json
 {
     "name": "Mr. Reynolds",
     "budgetLimit": 200,
-    "transactions": [
-        {
-            
-        }
-    ]
-
-    "category": "groceries",
-    "amount": 141
+    
 }
 
 ###
