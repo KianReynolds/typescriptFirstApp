@@ -6,29 +6,74 @@ POST {{endpoint}} HTTP/3.0
 Content-Type: application/json
 
 {
-    "name": "John Wayne",
-    "category": "Groceries",
-    "budgetLimit": 200,
+    "name": "Don Johnson",
+    "category": "Bank",
+    "budgetLimit": 5000,
     "transactions": [
         {
-            "type": "expense",
-            "amount": 45,
+            "type": "income",
+            "amount": 50,
             "date": "2024-10-10",
-            "description": "Supermarket groceries"
-        },
-        {
-            "type": "expense",
-            "amount": 99.9,
-            "date": "2024-10-15",
-            "description": "Grocery store purchase"
+            "description": "Deposited money"
         }
+        
     ]
 }
 
 ###
+POST {{endpoint}} HTTP/3.0
+Content-Type: application/json
+
+{
+    "name": "D",
+    "category": "Bank",
+    "budgetLimit": -5000,
+    "transactions": [
+        {
+            "type": "income",
+            "amount": 50,
+            "date": "2024-10-10",
+            "description": "Deposited money"
+        }
+        
+    ]
+}
+###
+
+
+
+
+
+
+
+
+
 GET {{endpoint}} HTTP/3.0
 
 ###
+
+GET {{endpoint}}/67153d1a44ee23ddafa999b3 HTTP/3.0
+
+###
+
+GET {{endpoint}}/67153d1a44ee23ddafa999 HTTP/3.0
+
+###
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 PUT {{endpoint}}/67153e5c44ee23ddafa999b4 HTTP/3.0
 Content-Type: application/json
@@ -40,21 +85,101 @@ Content-Type: application/json
     "transactions": [
         {
             "type": "expense",
-            "amount": 55,
+            "amount": 50,
             "date": "2024-10-10",
             "description": "Supermarket groceries"
         },
         {
             "type": "expense",
-            "amount": 99.9,
-            "date": "2024-10-15",
+            "amount": 60,
+            "date": "2024-10-11",
             "description": "Grocery store purchase"
+        },
+        {
+            "type": "expense",
+            "amount": 50,
+            "date": "2024-10-10",
+            "description": "Supermarket groceries"
+        },
+        {
+            "type": "expense",
+            "amount": 50,
+            "date": "2024-10-10",
+            "description": "Supermarket groceries"
+        },
+        {
+            "type": "expense",
+            "amount": 50,
+            "date": "2024-10-10",
+            "description": "Supermarket groceries"
+        },
+        {
+            "type": "expense",
+            "amount": 50,
+            "date": "2024-10-10",
+            "description": "Supermarket groceries"
+        },
+        {
+            "type": "expense",
+            "amount": 50,
+            "date": "2024-10-10",
+            "description": "Supermarket groceries"
         }
     ]
 }
 
 ###
+//not found
+PUT {{endpoint}} HTTP/3.0
+Content-Type: application/json
+
+{
+    "name": "John Wayne Jr",
+    "category": "Groceries",
+    "budgetLimit": 200,
+    "transactions": [
+        {
+            "type": "expense",
+            "amount": 50,
+            "date": "2024-10-10",
+            "description": "Supermarket groceries"
+        }
+    ]
+}
+
+###
+//invalid
+PUT {{endpoint}}/67153e5c44ee23ddafa999 HTTP/3.0
+Content-Type: application/json
+
+{
+    "name": "John Wayne Jr",
+    "category": "Groceries",
+    "budgetLimit": 200,
+    "transactions": [
+        {
+            "type": "expense",
+            "amount": 50,
+            "date": "2024-10-10",
+            "description": "Supermarket groceries"
+        }
+        
+    ]
+}
+
+###
+
+
+
+
+
+
+
 
 DELETE {{endpoint}}/67152b39b51cb85aee197ddd HTTP/3.0
+
+###
+
+DELETE {{endpoint}}/67152b39b51cb85aee197dd HTTP/3.0
 
 ###

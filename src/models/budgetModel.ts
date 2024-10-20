@@ -26,7 +26,7 @@ export const ValiadateBudget =  (budget:Budget) => {
     const budgetScema = Joi.object({
         category: Joi.string().required(),
         name: Joi.string().min(3).required(),
-        budgetLimit: Joi.number().integer().required(),
+        budgetLimit: Joi.number().positive().required(),
         transactions: Joi.array().items(transactionSchema).required()
     })
     return budgetScema.validate(budget);
