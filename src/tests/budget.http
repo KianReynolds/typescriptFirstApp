@@ -6,7 +6,7 @@ POST {{endpoint}} HTTP/3.0
 Content-Type: application/json
 
 {
-    "name": "Sam Gormely",
+    "name": "Sir",
     "category": "Groceries",
     "budgetLimit": 500,
     "transactions": [

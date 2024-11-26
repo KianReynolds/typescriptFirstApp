@@ -6,11 +6,15 @@ export default interface Budget{
     id? : ObjectId;
     budgetLimit: number;
     category : string;
+    transactions: Transactions[]
+
+}
+
+interface Transactions{
     amount: number;
     description : string;
     date : Date;
     type: string;
-
 }
 
 export const ValiadateBudget =  (budget:Budget) => {
