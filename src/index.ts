@@ -1,16 +1,12 @@
 import express, {Application, Request, Response} from "express" ;
-
 import userRoutes from './routes/users';
-
 import morgan from "morgan";
-
 import dotenv from "dotenv";
-
 import { Db} from 'mongodb';
-
 import budgetRoutes from './routes/budgetRoutes'
-
 import {authenticateKey} from './middleware/auth.middleware';
+import cors from "cors";
+
 
 dotenv.config();
 
@@ -25,6 +21,8 @@ const app: Application = express();
 app.use(morgan("tiny"));
 
 app.use(express.json());
+
+app.use(cors());
 
 app.use('/api/v1/users',  userRoutes)
 
