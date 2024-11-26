@@ -7,7 +7,9 @@ POST {{endpoint}} HTTP/3.0
 content-type: application/json
 
 { "name" : "Monday is here",
-"email": "jdoe123@gmail.com"
+"email": "jdoe123@gmail.com",
+"password": "password"
+
 }
 ###
 # @name postAUser

@@ -4,6 +4,7 @@ import User from '../models/user'
 import { ObjectId} from 'mongodb';
 import { ValidateUser } from '../models/user';
 import Joi from 'joi';
+import * as argon2 from 'argon2';
 
 
 export const getUsers =async  (req: Request, res: Response) => {
@@ -54,31 +55,56 @@ export const getUserById = async (req: Request, res: Response) => {
 export const createUser = async (req: Request, res: Response) => {
   // create a new user in the database
   try {
-    const newUser = req.body as User;
+    
+    let validateResult : Joi.ValidationResult = ValidateUser(req.body)
 
-    newUser.dateJoined = new Date();
+    if (validateResult.error) {
+      res.status(400).json(validateResult.error);
+      return
+    }
 
-    newUser.lastUpdated = new Date();
+    const existingUser = await usersCollection.findOne({email:
+      req.body.email})
+
+    if (existingUser) {
+       res.status(400).json({"error": "existing email"});
+       return;
+    }
+    
+    let newUser : User = 
+    {
+      name: req.body.name ,
+      email: req.body.email,
+      phonenumber : req.body.phonenumber,
+      dateJoined : new Date(),
+      lastUpdated : new Date(),
+    }
+
+    newUser.hashedPassword = await argon2.hash(req.body.password)
+
+    console.log(newUser.hashedPassword)
 
     const result = await usersCollection.insertOne(newUser)
 
     if (result) {
-        res.status(201).location(`${result.insertedId}`).json({message : `Created a new user with id ${result.insertedId}`})}
-        else {
-        res.status(500).send("Failed to create a new user.");
-        }
+      res.status(201)
+      .location(`${result.insertedId}`)
+      .json({message : 
+        `Created a new user with id ${result.insertedId}`
+      })} else {
+        res.status(500).send("Failed to create a new user");
+      }
     }
     catch (error) {
       if (error instanceof Error)
       {
-       console.log(`issue with inserting ${error.message}`);
+        console.log(`issue with inserting ${error.message}`);
       }
       else{
         console.log(`error with ${error}`)
       }
       res.status(400).send(`Unable to create new user`);
-  }
-  
+    }
 };
 
 
