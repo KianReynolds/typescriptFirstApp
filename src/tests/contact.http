@@ -17,9 +17,10 @@ POST {{endpoint}} HTTP/1.1
 content-type: application/json
 //x-api-key: ""
 
-{ "name" : "Monday is here",
-"email": "jdoe1234@gmail.com",
-"password": "password123"
+{ 
+"name": "joe",
+"email": "joe@gmail.com",
+"password": "password"
 }
 ###
 @newObjectID = {{postAUser.response.headers.location}}
