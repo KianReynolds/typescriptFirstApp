@@ -6,14 +6,16 @@ import { Db} from 'mongodb';
 import budgetRoutes from './routes/budgetRoutes'
 import {authenticateKey} from './middleware/auth.middleware';
 import cors from "cors";
+import handleLoginRoutes from './routes/auth';
 
 
 dotenv.config();
 
 import gradeHistoriesRoutes from './routes/gradeHistories'
+import { handleLogin } from "./controllers/auth";
 
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 const app: Application = express();
 
@@ -30,7 +32,7 @@ app.use('/api/v1/gradeHistories', gradeHistoriesRoutes)
 
 app.use('/api/v1/budget', budgetRoutes)
 
-
+app.use('/api/v1/auth', handleLoginRoutes)
 
 
 app.get("/ping", async (_req : Request, res: Response) => {
