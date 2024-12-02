@@ -15,10 +15,11 @@ content-type: application/json
 # @name postAUser
 POST {{endpoint}} HTTP/1.1
 content-type: application/json
-x-api-key: ""
+//x-api-key: ""
 
 { "name" : "Monday is here",
-"email": "jdoe123@gmail.com"
+"email": "jdoe1234@gmail.com",
+"password": "password123"
 }
 ###
 @newObjectID = {{postAUser.response.headers.location}}
