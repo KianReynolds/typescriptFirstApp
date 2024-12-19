@@ -49,6 +49,14 @@ export const getBudgetById = async (req: Request, res: Response) => {
 export const createBudget = async(req: Request, res: Response) => {
 //create new budget plan in the database
 try {
+
+    let validateResult : Joi.ValidationResult = ValiadateBudget(req.body)
+
+    if (validateResult.error) {
+      res.status(400).json(validateResult.error);
+      return;
+    }
+    
     const newBudget = req.body as Budget;
 
     const result = await budgetCollection.insertOne(newBudget)
