@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import Budget, { ValiadateBudget } from "../models/budgetModel";
-import { budgetCollection } from "../database";
+import { budgetCollection, usersCollection } from "../database";
 import { ObjectId } from "mongodb";
 import Joi from "joi";
+import * as argon2 from 'argon2';
 
 export const getBudget = async (req: Request, res: Response) => {
 
@@ -56,8 +57,29 @@ try {
       res.status(400).json(validateResult.error);
       return;
     }
-    
-    const newBudget = req.body as Budget;
+
+    const existingUser = await usersCollection.findOne({email:req.body.email})
+
+    if (existingUser){
+      res.status(400).json({"error": "existing email"});
+      return;
+    }
+
+    let newBudget : Budget = 
+    {
+      name: req.body.name,
+      email: req.body.email,
+      budgetLimit : req.body.budgetLimit,
+      category: req.body.category,
+      transactions: req.body.transactions,
+
+    }
+
+    newBudget.hashedPassword = await argon2.hash(req.body.password)
+
+    console.log(newBudget.hashedPassword)
+
+    //const newBudget = req.body as Budget;
 
     const result = await budgetCollection.insertOne(newBudget)
 

@@ -6,7 +6,9 @@ POST {{endpoint}} HTTP/3.0
 Content-Type: application/json
 
 {
-    "name": "Sir",
+    "name": "Kian R.",
+    "email": "kianreynolds69@gmail.com",
+    "password": "Kian1234",
     "category": "Groceries",
     "budgetLimit": 500,
     "transactions": [
@@ -18,6 +20,7 @@ Content-Type: application/json
         }
         
     ]
+
 }
 
 ###
