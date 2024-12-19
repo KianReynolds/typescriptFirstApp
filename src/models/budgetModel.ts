@@ -6,7 +6,9 @@ export default interface Budget{
     id? : ObjectId;
     budgetLimit: number;
     category : string;
-    transactions: Transactions[]
+    transactions: Transactions[];
+    password?: string;
+    hashedPassword?: string;
 
 }
 
@@ -23,7 +25,7 @@ export const ValiadateBudget =  (budget:Budget) => {
         type: Joi.string().valid('income', 'expense').required(),
         amount: Joi.number().integer().required(),
         description: Joi.string().min(3).required(),
-        date: Joi.date().default(Date.now)
+        date: Joi.date().default(Date.now),
         
     })
 
@@ -31,6 +33,7 @@ export const ValiadateBudget =  (budget:Budget) => {
         category: Joi.string().required(),
         name: Joi.string().min(3).required(),
         budgetLimit: Joi.number().positive().required(),
+        password: Joi.string().min(8).max(64).required(),
         transactions: Joi.array().items(transactionSchema).required()
     })
     return budgetScema.validate(budget);
