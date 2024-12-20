@@ -7,7 +7,7 @@ Content-Type: application/json
 
 {
     "name": "Kian R.",
-    "email": "kianreynolds69@gmail.com",
+    "email": "kianoreynolds69@gmail.com",
     "password": "Kian1234",
     "category": "Groceries",
     "budgetLimit": 500,
