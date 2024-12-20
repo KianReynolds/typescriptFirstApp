@@ -32,7 +32,7 @@ export const ValidateBudget =  (budget:Budget) => {
 
     const budgetScema = Joi.object({
         category: Joi.string(),
-        name: Joi.string().min(3).required(),
+        name: Joi.string().min(3),
         budgetLimit: Joi.number().positive(),
         email: Joi.string().email().required(),
         password: Joi.string().min(8).max(64).required(),
