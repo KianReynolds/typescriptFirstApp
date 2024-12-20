@@ -64,6 +64,7 @@ try {
       res.status(400).json({"error": "existing email"});
       return;
     }
+    
 
     let newBudget : Budget = 
     {
@@ -72,7 +73,7 @@ try {
       budgetLimit : req.body.budgetLimit,
       category: req.body.category,
       transactions: req.body.transactions,
-
+      role: req.body.email,
     }
 
     newBudget.hashedPassword = await argon2.hash(req.body.password)
