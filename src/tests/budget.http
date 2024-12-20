@@ -31,9 +31,11 @@ content-type: application/json
 //x-api-key: ""
 
 { 
-"name": "Kian",
-"email": "kian1@gmail.com",
-"password": "password"
+
+"name": "Admin",
+"email": "ad@gmail.com",
+"password": "password",
+"role": "admin"
 }
 
 ###

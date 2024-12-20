@@ -13,6 +13,7 @@ dotenv.config();
 
 import gradeHistoriesRoutes from './routes/gradeHistories'
 import { handleLogin } from "./controllers/auth";
+import { isAdmin, validJWTProvided } from "./middleware/auth1.middleware";
 
 
 const PORT = process.env.PORT || 3000;
@@ -34,7 +35,9 @@ app.use('/api/v1/budget', budgetRoutes)
 
 app.use('/api/v1/auth', handleLoginRoutes)
 
-
+app.get("/admin", validJWTProvided, isAdmin, (req: Request, res: Response) => {
+  res.json({ message: "Welcome, admin! You have access to this route." });
+});
 
 app.get("/ping", async (_req : Request, res: Response) => {
     res.send({
