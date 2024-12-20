@@ -20,23 +20,23 @@ interface Transactions{
     type: string;
 }
 
-export const ValiadateBudget =  (budget:Budget) => {
+export const ValidateBudget =  (budget:Budget) => {
 
     const transactionSchema = Joi.object({
-        type: Joi.string().valid('income', 'expense').required(),
-        amount: Joi.number().integer().required(),
-        description: Joi.string().min(3).required(),
+        type: Joi.string().valid('income', 'expense'),
+        amount: Joi.number().integer(),
+        description: Joi.string().min(3),
         date: Joi.date().default(Date.now),
         
     })
 
     const budgetScema = Joi.object({
-        category: Joi.string().required(),
+        category: Joi.string(),
         name: Joi.string().min(3).required(),
-        budgetLimit: Joi.number().positive().required(),
+        budgetLimit: Joi.number().positive(),
         email: Joi.string().email().required(),
         password: Joi.string().min(8).max(64).required(),
-        transactions: Joi.array().items(transactionSchema).required()
+        transactions: Joi.array().items(transactionSchema)
     })
     return budgetScema.validate(budget);
     

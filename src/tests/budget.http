@@ -24,6 +24,30 @@ Content-Type: application/json
 }
 
 ###
+
+# @name postABudget
+POST {{endpoint}} HTTP/1.1
+content-type: application/json
+//x-api-key: ""
+
+{ 
+"name": "Kian",
+"email": "kian1@gmail.com",
+"password": "password"
+}
+
+###
+POST http://localhost:3000/api/v1/auth HTTP/1.1
+content-type: application/json
+
+{ 
+   "name": "Kian",
+"email": "kian1@gmail.com",
+"password": "password"
+
+}
+
+###
 POST {{endpoint}} HTTP/3.0
 Content-Type: application/json
 

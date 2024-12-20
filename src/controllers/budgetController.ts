@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Budget, { ValiadateBudget } from "../models/budgetModel";
+import Budget, { ValidateBudget } from "../models/budgetModel";
 import { budgetCollection, usersCollection } from "../database";
 import { ObjectId } from "mongodb";
 import Joi from "joi";
@@ -51,7 +51,7 @@ export const createBudget = async(req: Request, res: Response) => {
 //create new budget plan in the database
 try {
 
-    let validateResult : Joi.ValidationResult = ValiadateBudget(req.body)
+    let validateResult : Joi.ValidationResult = ValidateBudget(req.body)
 
     if (validateResult.error) {
       res.status(400).json(validateResult.error);
