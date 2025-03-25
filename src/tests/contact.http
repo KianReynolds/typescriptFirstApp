@@ -6,10 +6,12 @@
 POST {{endpoint}} HTTP/3.0
 content-type: application/json
 
-{ "name" : "Johnny Doey",
-"email": "johnfnydoe1234@gmail.com",
-"phonenumber" : "0831308304",
+{ 
+"name": "john",
+"email": "johnscsondoyle@gmail.com",
 "password": "password"
+
+
 
 }
 ###
@@ -20,14 +22,14 @@ content-type: application/json
 
 { 
 "name": "joe",
-"email": "joe1@gmail.com",
+"email": "joe123@gmail.com",
 "password": "password"
 }
 ###
-@newObjectID = {{postAUser.response.headers.location}}
+# @newObjectID = {{postAUser.response.headers.location}}
 
 
-   GET {{endpoint}}/{{{{newObjectID}}}}
+#    GET {{endpoint}}/{{{{newObjectID}}}}
 
 ###
 PUT http://localhost:3000/api/v1/users/670403a3595adb1ffcd15911
@@ -47,11 +49,3 @@ content-type: application/json
 
 }
 ###
-
-
-
-
-
-
-
-

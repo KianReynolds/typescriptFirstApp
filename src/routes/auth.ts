@@ -1,10 +1,10 @@
 import express, { Router } from 'express';
-import { validJWTProvided } from '../middleware/auth1.middleware';
+import { validJWTProvided } from '../middleware/auth.middleware';
 
 import{
     handleLogin,
     deleteUser,
-} from '../controllers/auth';
+} from '../controllers/authBudget';
 
 
 const router: Router = express.Router();

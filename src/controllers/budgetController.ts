@@ -73,7 +73,7 @@ try {
       budgetLimit : req.body.budgetLimit,
       category: req.body.category,
       transactions: req.body.transactions,
-      role: req.body.email,
+      //role: req.body.email,
     }
 
     newBudget.hashedPassword = await argon2.hash(req.body.password)

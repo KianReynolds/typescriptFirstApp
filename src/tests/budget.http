@@ -2,13 +2,13 @@
 
 ###
 
-POST {{endpoint}} HTTP/3.0
+POST {{endpoint}} HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "Kian R.",
-    "email": "kianoreynolds69@gmail.com",
-    "password": "Kian1234",
+    "name": "Greg",
+    "email": "greg@gmail.com",
+    "password": "greg1234",
     "category": "Groceries",
     "budgetLimit": 500,
     "transactions": [
@@ -18,7 +18,6 @@ Content-Type: application/json
             "date": "2024-10-10",
             "description": "Supermarket groceries"
         }
-        
     ]
 
 }
@@ -35,7 +34,7 @@ content-type: application/json
 "name": "Admin",
 "email": "ad@gmail.com",
 "password": "password",
-"role": "admin"
+//"role": "admin"
 }
 
 ###
@@ -201,4 +200,14 @@ DELETE {{endpoint}}/67153d1a44ee23ddafa999b3 HTTP/3.0
 
 DELETE {{endpoint}}/67152b39b51cb85aee197dd HTTP/3.0
 
+###
+
+POST {{endpoint}} HTTP/1.1
+Content-Type: application/json
+
+{
+"name": "Kian",
+"email": "kian1@gmail.com",
+"password": "password"
+}
 ###

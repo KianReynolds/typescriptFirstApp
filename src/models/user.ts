@@ -18,7 +18,7 @@ export const ValidateUser = (user : User) => {
        name: Joi.string().min(3).required() ,
        phonenumber: Joi.string().min(10),
        email: Joi.string().email().required(),   
-       password: Joi.string().min(8).max(64).required(), 
+       password: Joi.string().min(8).max(64), 
     });
     return contactJoiSchema.validate(user);
 }

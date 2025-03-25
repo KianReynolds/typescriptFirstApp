@@ -1,9 +1,9 @@
 import { ObjectId } from "mongodb";
 import Joi from "joi";
 
-enum role{
-    admin, editor, ''
-}
+// enum role{
+//     admin, editor, ''
+// }
 
 export default interface Budget{
     name: string;
@@ -15,7 +15,7 @@ export default interface Budget{
     password?: string;
     hashedPassword?: string;
    
-    role?: role;
+    //role?: role;
 }
 
 interface Transactions{
@@ -39,9 +39,9 @@ export const ValidateBudget =  (budget:Budget) => {
         category: Joi.string(),
         name: Joi.string().min(3),
         budgetLimit: Joi.number().positive(),
-        email: Joi.string().email().required(),
-        password: Joi.string().min(8).max(64).required(),
-        role: Joi.string().valid(...Object.values(role)),
+        email: Joi.string().email(),
+        password: Joi.string().min(8).max(64),
+       // role: Joi.string().valid(...Object.values(role)),
         transactions: Joi.array().items(transactionSchema)
     })
     return budgetScema.validate(budget);
