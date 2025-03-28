@@ -1,9 +1,7 @@
 import { ObjectId } from "mongodb";
 import Joi from "joi";
 
-// enum role{
-//     admin, editor, ''
-// }
+
 
 export default interface Budget{
     name: string;
@@ -11,11 +9,7 @@ export default interface Budget{
     budgetLimit: number;
     category : string;
     transactions: Transactions[];
-    // email: string;
-    // password?: string;
-    // hashedPassword?: string;
-   
-    //role?: role;
+    
 }
 
 interface Transactions{
