@@ -75,9 +75,7 @@ export const createUser = async (req: Request, res: Response) => {
     {
       name: req.body.name ,
       email: req.body.email,
-      phonenumber : req.body.phonenumber,
-      dateJoined : new Date(),
-      lastUpdated : new Date(),
+      role: req.body.role || 'user'
     }
 
     newUser.hashedPassword = await argon2.hash(req.body.password)
@@ -90,19 +88,14 @@ export const createUser = async (req: Request, res: Response) => {
       res.status(201)
       .location(`${result.insertedId}`)
       .json({message : 
-        `Created a new user with id ${result.insertedId}`
+        `Created a new user with id ${result.insertedId}`,
+        role: newUser.role
       })} else {
         res.status(500).send("Failed to create a new user");
       }
     }
     catch (error) {
-      if (error instanceof Error)
-      {
-        console.log(`issue with inserting ${error.message}`);
-      }
-      else{
-        console.log(`error with ${error}`)
-      }
+      console.error(error);
       res.status(400).send(`Unable to create new user`);
     }
 };

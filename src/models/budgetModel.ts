@@ -11,9 +11,9 @@ export default interface Budget{
     budgetLimit: number;
     category : string;
     transactions: Transactions[];
-    email: string;
-    password?: string;
-    hashedPassword?: string;
+    // email: string;
+    // password?: string;
+    // hashedPassword?: string;
    
     //role?: role;
 }
@@ -36,12 +36,10 @@ export const ValidateBudget =  (budget:Budget) => {
     })
 
     const budgetScema = Joi.object({
+        user: Joi.object().required(),
         category: Joi.string(),
         name: Joi.string().min(3),
         budgetLimit: Joi.number().positive(),
-        email: Joi.string().email(),
-        password: Joi.string().min(8).max(64),
-       // role: Joi.string().valid(...Object.values(role)),
         transactions: Joi.array().items(transactionSchema)
     })
     return budgetScema.validate(budget);

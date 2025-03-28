@@ -68,17 +68,17 @@ try {
 
     let newBudget : Budget = 
     {
+      
       name: req.body.name,
-      email: req.body.email,
       budgetLimit : req.body.budgetLimit,
       category: req.body.category,
       transactions: req.body.transactions,
       //role: req.body.email,
     }
 
-    newBudget.hashedPassword = await argon2.hash(req.body.password)
+    // newBudget.hashedPassword = await argon2.hash(req.body.password)
 
-    console.log(newBudget.hashedPassword)
+    // console.log(newBudget.hashedPassword)
 
     //const newBudget = req.body as Budget;
 

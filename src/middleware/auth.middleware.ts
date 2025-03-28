@@ -49,24 +49,24 @@ export const validJWTProvided = async (
   
       };
   
-      // export const isAdmin = async (
-      //   req: Request,
-      //   res: Response,
-      //   next: NextFunction
-      // ) => {
+      export const isAdmin = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+      ) => {
         
-      //    const role = res.locals?.payload?.role
+         const role = res.locals?.payload?.role
   
-      //    console.log('role is ' + role)
+         console.log('role is ' + role)
   
-      //    if (role && role == 'admin') {
-      //     next();
-      //    }
-      //    else {
-      //     res.status(403).json({"opps" : "not an admin"});
-      //  }
+         if (role && role == 'admin') {
+          next();
+         }
+         else {
+          res.status(403).json({"opps" : "not an admin"});
+       }
   
-      // };
+      };
   
   
   

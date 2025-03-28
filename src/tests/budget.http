@@ -34,7 +34,7 @@ content-type: application/json
 "name": "Admin",
 "email": "ad@gmail.com",
 "password": "password",
-//"role": "admin"
+"role": "admin"
 }
 
 ###

@@ -1,5 +1,5 @@
 import express, {Router} from 'express';
-//import { validJWTProvided } from '../middleware/auth.middleware';
+import { isAdmin, validJWTProvided } from '../middleware/auth.middleware';
 
 import { authenticateKey } from '../middleware/auth.middleware';
 import {
@@ -13,10 +13,10 @@ import {
 
 const router: Router = express.Router();
 
-router.get('/', getUsers);
-router.get('/:id', getUserById);
-router.post('/', createUser);
-router.put('/:id', updateUser);
-router.delete('/:id', deleteUser);
+router.get('/', validJWTProvided, isAdmin, getUsers);
+router.get('/:id', validJWTProvided, isAdmin, getUserById);
+router.post('/',  createUser);
+router.put('/:id', validJWTProvided, isAdmin, updateUser);
+router.delete('/:id', validJWTProvided, isAdmin, deleteUser);
 
 export default router;
