@@ -6,6 +6,7 @@ enum role{
 }
 
 export default interface User {
+    _id?: ObjectId;
     name: string;
     email: string;
     password?: string;
@@ -17,7 +18,7 @@ export default interface User {
 export const ValidateUser = (user : User) => {
 
     const contactJoiSchema = Joi.object<User>({
-       
+       _id: Joi.any(),
         email: Joi.string().email().required(),   
        name: Joi.string().min(3).required() ,
        password: Joi.string().min(8).max(64).required(), 

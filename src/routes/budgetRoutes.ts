@@ -14,8 +14,8 @@ const router : Router = express.Router();
 
 router.get('/', getBudget);
 router.get('/:id', getBudgetById);
-router.post('/', createBudget);
-router.put('/:id', updateBudget);
+router.post('/', validJWTProvided, createBudget);
+router.put('/:id', validJWTProvided, updateBudget);
 router.delete('/:id', validJWTProvided,deleteBudget);
 
 

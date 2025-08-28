@@ -58,29 +58,29 @@ try {
       return;
     }
 
-    const existingUser = await usersCollection.findOne({email:req.body.email})
+    const userEmail = res.locals?.payload?.email;
+    if (!userEmail) {
+      res.status(401).json({"error": "user email not authenticated"});
+      return;
+    }
 
-    if (existingUser){
-      res.status(400).json({"error": "existing email"});
+    const user = await usersCollection.findOne({email: userEmail});
+
+    if (!user){
+      res.status(404).json({"error": "User not found"});
       return;
     }
     
 
     let newBudget : Budget = 
     {
-      
+      userId : user._id,
       name: req.body.name,
       budgetLimit : req.body.budgetLimit,
       category: req.body.category,
       transactions: req.body.transactions,
-      //role: req.body.email,
+      
     }
-
-    // newBudget.hashedPassword = await argon2.hash(req.body.password)
-
-    // console.log(newBudget.hashedPassword)
-
-    //const newBudget = req.body as Budget;
 
     const result = await budgetCollection.insertOne(newBudget)
 

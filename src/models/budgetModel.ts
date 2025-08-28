@@ -6,6 +6,7 @@ import Joi from "joi";
 export default interface Budget{
     name: string;
     id? : ObjectId;
+    userId: ObjectId;
     budgetLimit: number;
     category : string;
     transactions: Transactions[];
