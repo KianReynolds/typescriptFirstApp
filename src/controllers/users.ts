@@ -75,7 +75,8 @@ export const createUser = async (req: Request, res: Response) => {
     {
       name: req.body.name ,
       email: req.body.email,
-      role: req.body.role || 'user'
+      role: req.body.role || 'user',
+      hashedPassword: await argon2.hash(req.body.password)
     }
 
     newUser.hashedPassword = await argon2.hash(req.body.password)
