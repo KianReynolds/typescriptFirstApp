@@ -26,6 +26,11 @@ exports.handler = async (event, context) => {
   const budgets = await db.collection("budgeting").find({}).sort({"_id":-1}).limit(20).toArray();
   const response = {
     statusCode: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "Access-Control-Allow-Header": "Content-Type", // Required for cookies, authorization headers with HTTPS
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE" // Allowed methods
+    },
     body: JSON.stringify(budgets),
   };
 
