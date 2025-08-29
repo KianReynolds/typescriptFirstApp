@@ -31,4 +31,4 @@ COPY --from=builder /app/.env ./.env
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["npm", "build/index.js"]
