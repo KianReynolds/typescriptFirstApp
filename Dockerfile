@@ -1,72 +1,55 @@
-# Stage 1: Build the Node.js application
-FROM node:18-alpine AS builder
+    # Stage 1: Build the Node.js application
+    FROM node:18-alpine AS builder
 
-# Set the working directory inside the container
-WORKDIR /app
+    # Set the working directory inside the container
+    WORKDIR /app
 
-# --- DIAGNOSTIC STEP 0: Verify initial WORKDIR ---
-RUN echo "Current directory after WORKDIR: $(pwd)"
-RUN ls -la
-# --- END DIAGNOSTIC STEP 0 ---
+    # Copy package.json and package-lock.json to install dependencies
+    COPY package*.json ./
 
-# Copy package.json and package-lock.json to install dependencies
-COPY package*.json ./
+    # Install application dependencies
+    RUN npm install
 
-# --- DIAGNOSTIC STEP 1: Verify package files copied ---
-RUN echo "Contents after copying package*.json:"
-RUN ls -la
-# --- END DIAGNOSTIC STEP 1 ---
+    # --- DIAGNOSTIC STEP: Verify node_modules installed ---
+    RUN echo "Contents after npm install:"
+    RUN ls -la node_modules
+    # --- END DIAGNOSTIC STEP ---
 
-# Install application dependencies
-RUN npm install
+    # Explicitly copy the 'src' directory
+    COPY src ./src
+    # Copy other necessary files/folders if they are at the root level and not in src
+    # For example, if you have a 'public' folder for static assets:
+    # COPY public ./public
+    # COPY .env ./.env # Only if you still want to copy .env, but Render env vars are preferred
 
-# --- DIAGNOSTIC STEP 2: Verify node_modules installed ---
-RUN echo "Contents after npm install:"
-RUN ls -la node_modules
-# --- END DIAGNOSTIC STEP 2 ---
+    # --- DIAGNOSTIC STEP: Verify source files copied ---
+    RUN echo "Contents after explicitly copying src:"
+    RUN ls -la
+    RUN ls -la src
+    # --- END DIAGNOSTIC STEP ---
 
-# Copy the rest of your application code
-COPY . .
+    # Build the TypeScript code to JavaScript
+    RUN npm run build
 
-# --- DIAGNOSTIC STEP 3: Verify source files copied ---
-RUN echo "Contents after copying application code (including 'src'):"
-RUN ls -la
-RUN ls -la src
-# --- END DIAGNOSTIC STEP 3 ---
+    # --- DIAGNOSTIC STEP: Verify 'build' directory creation and contents ---
+    RUN echo "Contents of /app/build after npm run build:"
+    RUN ls -la build || echo "Build directory not found or empty."
+    # --- END DIAGNOSTIC STEP ---
 
-# Build the TypeScript code to JavaScript
-# This command executes 'tsc' from node_modules/.bin
-RUN npm run build
+    # Stage 2: Create a smaller production-ready image
+    FROM node:18-alpine
 
-# --- DIAGNOSTIC STEP 4: Verify 'build' directory creation and contents ---
-RUN echo "Contents of /app/build after npm run build:"
-RUN ls -la build || echo "Build directory not found or empty."
-# --- END DIAGNOSTIC STEP 4 ---
+    # Set the working directory
+    WORKDIR /app
 
-# Stage 2: Create a smaller production-ready image
-FROM node:18-alpine
+    # Copy only the necessary files from the builder stage
+    COPY --from=builder /app/build ./build
+    COPY --from=builder /app/node_modules ./node_modules
+    COPY --from=builder /app/package.json ./package.json
 
-# Set the working directory
-WORKDIR /app
+    # Expose the port your Express app listens on
+    EXPOSE 3000
 
-# --- DIAGNOSTIC STEP 5: Verify WORKDIR in final stage ---
-RUN echo "Current directory in final stage after WORKDIR: $(pwd)"
-RUN ls -la
-# --- END DIAGNOSTIC STEP 5 ---
-
-# Copy only the necessary files from the builder stage
-COPY --from=builder /app/build ./build
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-
-# --- DIAGNOSTIC STEP 6: Verify files copied to final stage ---
-RUN echo "Contents of /app in final stage after copying from builder:"
-RUN ls -la
-RUN ls -la build
-# --- END DIAGNOSTIC STEP 6 ---
-
-# Expose the port your Express app listens on
-EXPOSE 3000
-
-# Command to run your application directly with node
-CMD ["node", "./build/index.js"]
+    # Command to run your application directly with node
+    CMD ["node", "./build/index.js"]
+    
