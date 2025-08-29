@@ -1,18 +1,42 @@
-# line 3 initialises build stage and sets base image called build
-# using node here as base image
-FROM node:22.8-alpine AS build
+# Stage 1: Build the Node.js application
+# Use a lightweight Node.js image as the base
+FROM node:18-alpine AS builder
 
-
-# line 8 -if directory does not exist, WORKDIR creates it
-# line 8 path is relative to current working directory
+# Set the working directory inside the container
 WORKDIR /app
-# line 10 copy all files from current location to workdir
-COPY . .
-# line 12 install node libraries
+
+# Copy package.json and package-lock.json to install dependencies
+# We copy these first to leverage Docker's layer caching
+COPY package*.json ./
+
+# Install application dependencies
 RUN npm install
-# line 14 same as ng build :-)
+
+# Copy the rest of your application code
+COPY . .
+
+# Build the TypeScript code to JavaScript
+# Assuming your tsconfig.json is in the root and outputs to 'build'
 RUN npm run build
-# line 16 add another image to build base, the nginx web server
-FROM nginx:alpine
-# line 18 copy the buit application to the nginx root dir at /html
-COPY --from=build /app/dist/my-budget-backend/browser /usr/share/nginx/html
+
+# Stage 2: Create a smaller production-ready image
+FROM node:18-alpine
+
+# Set the working directory
+WORKDIR /app
+
+# Copy only the necessary files from the builder stage
+# This includes the built JavaScript files and node_modules
+COPY --from=builder /app/build ./build
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/.env ./.env 
+# Copy your .env file for environment variables
+
+# Expose the port your Express app listens on
+# Based on your .env, your app listens on port 3000
+EXPOSE 3000
+
+# Command to run your application
+# This uses the 'start' script defined in your package.json
+CMD ["npm", "run dev"]
