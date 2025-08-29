@@ -23,7 +23,10 @@ const PORT = process.env.PORT || 3000;
 const app: Application = express();
 
 const corsOptions = {
-  origin: "http://localhost:4200",
+  origin: [
+    "http://localhost:4200",
+    "https://kian-budget-app.onrender.com"
+  ],
   optionsSuccessStatus: 200, 
 };
 
