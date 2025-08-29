@@ -16,7 +16,7 @@ COPY . .
 
 RUN npm run build
 
-RUN 1s -1 /app/build
+RUN ls -l /app/build
 
 
 FROM node:18-alpine
