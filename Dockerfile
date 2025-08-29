@@ -16,6 +16,8 @@ COPY . .
 
 RUN npm run build
 
+RUN 1s -1 /app/build
+
 
 FROM node:18-alpine
 
@@ -31,4 +33,4 @@ COPY --from=builder /app/.env ./.env
 
 EXPOSE 3000
 
-CMD ["npm", "build/index.js"]
+CMD ["npm", "start"]
