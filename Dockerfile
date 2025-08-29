@@ -13,20 +13,11 @@ RUN npm install
 # Copy the rest of your application code
 COPY . .
 
-# --- DIAGNOSTIC STEP 1: Verify source files copied ---
-RUN echo "Contents after copying application code (including 'src'):"
-RUN ls -la
-RUN ls -la src
-# --- END DIAGNOSTIC STEP 1 ---
+# Explicitly create the build directory to avoid errors if the build fails
+RUN mkdir -p build
 
 # Build the TypeScript code to JavaScript
-# This command now explicitly points to tsconfig.json
 RUN npm run build
-
-# --- DIAGNOSTIC STEP 2: Verify 'build' directory creation and contents ---
-RUN echo "Contents of /app/build after npm run build:"
-RUN ls -la build || echo "Build directory not found or empty."
-# --- END DIAGNOSTIC STEP 2 ---
 
 # Stage 2: Create a smaller production-ready image
 FROM node:18-alpine
