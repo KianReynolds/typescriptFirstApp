@@ -1,37 +1,18 @@
-# Stage 1: Build the Node.js application
-FROM node:18-alpine AS builder
+# line 3 initialises build stage and sets base image called build
+# using node here as base image
+FROM node:22.8-alpine AS build
 
-# Set the working directory inside the container
+
+# line 8 -if directory does not exist, WORKDIR creates it
+# line 8 path is relative to current working directory
 WORKDIR /app
-
-# Copy package.json and package-lock.json to install dependencies
-COPY package*.json ./
-
-# Install application dependencies
-RUN npm install
-
-# Copy the rest of your application code
+# line 10 copy all files from current location to workdir
 COPY . .
-
-# Explicitly create the build directory to avoid errors if the build fails
-RUN mkdir -p build
-
-# Build the TypeScript code to JavaScript
+# line 12 install node libraries
+RUN npm install
+# line 14 same as ng build :-)
 RUN npm run build
-
-# Stage 2: Create a smaller production-ready image
-FROM node:18-alpine
-
-# Set the working directory
-WORKDIR /app
-
-# Copy only the necessary files from the builder stage
-COPY --from=builder /app/build ./build
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-
-# Expose the port your Express app listens on
-EXPOSE 3000
-
-# Command to run your application directly with node
-CMD ["node", "./build/index.js"]
+# line 16 add another image to build base, the nginx web server
+FROM nginx:alpine
+# line 18 copy the buit application to the nginx root dir at /html
+COPY --from=build /app/dist/my-budget-backend/browser /usr/share/nginx/html
