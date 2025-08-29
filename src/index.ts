@@ -21,16 +21,17 @@ import { validJWTProvided } from "./middleware/auth.middleware";
 const PORT = process.env.PORT || 3000;
 
 const app: Application = express();
+
 const corsOptions = {
   origin: "http://localhost:4200",
   optionsSuccessStatus: 200, 
 };
 
+app.use(cors(corsOptions));
+
 app.use(morgan("tiny"));
 
 app.use(express.json());
-
-app.use(cors(corsOptions));
 
 app.use('/api/v1/users',  userRoutes)
 

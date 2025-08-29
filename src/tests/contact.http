@@ -8,9 +8,9 @@ content-type: application/json
 
 { 
 "name" : "Joe",
-"email": "joeneill101@gmail.com",
+"email": "joeboss@gmail.com",
 "password": "password",
-"role": "user"
+"role": "admin"
 }
 ###
 # @name postAUser

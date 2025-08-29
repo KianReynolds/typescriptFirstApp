@@ -79,9 +79,6 @@ export const createUser = async (req: Request, res: Response) => {
       hashedPassword: await argon2.hash(req.body.password)
     }
 
-    newUser.hashedPassword = await argon2.hash(req.body.password)
-
-    console.log(newUser.hashedPassword)
 
     const result = await usersCollection.insertOne(newUser)
 
